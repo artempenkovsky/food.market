@@ -5,7 +5,8 @@ import by.teachmeskills.food.market.models.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TransformerUserToUserDTO {
+public class TransformerUserToUserDTO extends Transformer<UserDTO, User> {
+    @Override
     public UserDTO transform(User user) {
         return UserDTO
                 .builder()

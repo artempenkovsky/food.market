@@ -5,7 +5,7 @@ import by.teachmeskills.food.market.models.User;
 import by.teachmeskills.food.market.models.UserRole;
 import by.teachmeskills.food.market.repositories.UserRepository;
 import by.teachmeskills.food.market.repositories.UserRoleRepository;
-import by.teachmeskills.food.market.services.UserService;
+import by.teachmeskills.food.market.services.DistributorService;
 import by.teachmeskills.food.market.transformers.TransformerUserDTOToUser;
 import by.teachmeskills.food.market.transformers.TransformerUserToUserDTO;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class DistributorServiceImpl implements DistributorService {
     private final TransformerUserDTOToUser transformerUserDTOToUser;
     private final UserRepository userRepository;
     private final TransformerUserToUserDTO transformerUserToUserDTO;
@@ -22,9 +22,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO registration(UserDTO userDTO) {
         User user = transformerUserDTOToUser.transform(userDTO);
-        UserRole roleUser = userRoleRepository.findByRole("ROLE_USER").orElseThrow(()-> new RuntimeException("Нельзя создать пользователя с такой ролью!"));
+        UserRole roleUser = userRoleRepository.findByRole("ROLE_DISTRIBUTOR").orElseThrow(()-> new RuntimeException("Нельзя создать пользователя с такой ролью!"));
         user.setUserRole(roleUser);
-        user.setApproved(true);
+        user.setApproved(false);
         User save = userRepository.save(user);
         return transformerUserToUserDTO.transform(save);
     }
