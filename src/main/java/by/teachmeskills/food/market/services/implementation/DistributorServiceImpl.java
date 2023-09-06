@@ -11,6 +11,11 @@ import by.teachmeskills.food.market.transformers.TransformerUserToUserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class DistributorServiceImpl implements DistributorService {
@@ -22,10 +27,33 @@ public class DistributorServiceImpl implements DistributorService {
     @Override
     public UserDTO registration(UserDTO userDTO) {
         User user = transformerUserDTOToUser.transform(userDTO);
-        UserRole roleUser = userRoleRepository.findByRole("ROLE_DISTRIBUTOR").orElseThrow(()-> new RuntimeException("Нельзя создать пользователя с такой ролью!"));
+        UserRole roleUser = userRoleRepository.findByRole("ROLE_DISTRIBUTOR").orElseThrow(() -> new RuntimeException("Нельзя создать пользователя с такой ролью!"));
         user.setUserRole(roleUser);
         user.setApproved(false);
         User save = userRepository.save(user);
         return transformerUserToUserDTO.transform(save);
+    }
+
+    @Override
+    public List<UserDTO> getAllDistibutors() {
+        List<User> all = userRepository.findAll();
+        return all.stream()
+                .filter(user -> user
+                        .getUserRole()
+                        .getRole()
+                        .equals("ROLE_DISTRIBUTOR"))
+                .sorted(Comparator.comparing(User::getId))
+                .map(user -> transformerUserToUserDTO.transform(user))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void changeStatusDistributors(Long distributorId) {
+        Optional<User> byId = userRepository.findById(distributorId);
+        if (byId.isPresent()){
+            User user = byId.get();
+            user.setApproved(!user.getApproved());
+            userRepository.save(user);
+        }
     }
 }

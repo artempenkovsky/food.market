@@ -21,4 +21,14 @@ public class LoginController {
         model.addAttribute("userDTO", new UserDTO());
         return "registration";
     }
+    @GetMapping("/registration/distributor")
+    public String formRegistrationDistributor(Model model) {
+        model.addAttribute("userDTO", new UserDTO());
+        return "registrationDistributor";
+    }
+    @GetMapping("/registration/courier")
+    public String formRegistrationСourier(Model model) {
+        model.addAttribute("userDTO", new UserDTO());
+        return "registrationCourier";
+    }
 }

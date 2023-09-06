@@ -14,6 +14,7 @@ public class TransformerUserToUserDTO extends Transformer<UserDTO, User> {
                 .login(user.getLogin())
                 .name(user.getName())
                 .surName(user.getSurName())
+                .approved(user.getApproved())
                 .build();
     }
 }

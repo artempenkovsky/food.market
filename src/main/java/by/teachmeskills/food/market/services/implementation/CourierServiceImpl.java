@@ -11,6 +11,11 @@ import by.teachmeskills.food.market.transformers.TransformerUserToUserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CourierServiceImpl implements CourierService {
@@ -27,5 +32,28 @@ public class CourierServiceImpl implements CourierService {
         user.setApproved(false);
         User save = userRepository.save(user);
         return transformerUserToUserDTO.transform(save);
+    }
+
+    @Override
+    public List<UserDTO> getAllCouriers() {
+        List<User> all = userRepository.findAll();
+        return all.stream()
+                .filter(user -> user
+                        .getUserRole()
+                        .getRole()
+                        .equals("ROLE_COURIER"))
+                .sorted(Comparator.comparing(User::getId))
+                .map(user -> transformerUserToUserDTO.transform(user))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void changeStatusCouriers(Long courierId) {
+        Optional<User> byId = userRepository.findById(courierId);
+        if (byId.isPresent()){
+            User user = byId.get();
+            user.setApproved(!user.getApproved());
+            userRepository.save(user);
+        }
     }
 }

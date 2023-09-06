@@ -36,4 +36,6 @@ public class UserDTO {
     @NotEmpty(message = "Поле confirmPassword не должно быть пустым")
     @Size(min = 5, max = 20, message = "Количество символов должно быть от 5 до 20 включительно")
     private String confirmPassword;
+    private Boolean approved;
+
 }
