@@ -9,8 +9,9 @@
 <header >
     <div id="menu">
         <ul fr>
-            <li><a href="/registration"><h2>Регистрация</h2></a></li>
-
+            <li><a href="/registration"><h2>Регистрация пользователя</h2></a></li>
+            <li><a href="/registration/courier"><h2>Регистрация курьера</h2></a></li>
+            <li><a href="/registration/distributor"><h2>Регистрация дистрибьютера</h2></a></li>
         </ul>
     </div>
 </header>

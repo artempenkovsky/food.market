@@ -1,0 +1,2 @@
+INSERT INTO user_roles (role) VALUES ('ROLE_COURIER');
+INSERT INTO user_roles (role) VALUES ('ROLE_DISTRIBUTOR');
