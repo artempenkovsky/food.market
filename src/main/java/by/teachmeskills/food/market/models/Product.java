@@ -29,4 +29,20 @@ public class Product {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<ProductOrder> productOrders = new ArrayList<>();
+
+    @Column
+    private Double price;
+
+    @Column
+    private Boolean active;
+
+    @Column(name = "measurement_unit")
+    private String measurementUnit;
+
+    @ManyToOne
+    @JoinColumn(name = "distributor_id")
+    private User distributor;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private ProductCategory productCategory;
 }

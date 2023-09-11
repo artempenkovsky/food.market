@@ -47,7 +47,10 @@ public class User implements UserDetails {
     private List<Order> orderList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-    List<Contact> contacts = new ArrayList<>();
+    private List<Contact> contacts = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "distributor")
+    private List<Product> products= new ArrayList<>();
 
     @Column(name = "approved")
     private Boolean approved;
