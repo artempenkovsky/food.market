@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "payment_type")
@@ -21,4 +23,7 @@ public class PaymentType {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentType")
+    private List<Order> orderList = new ArrayList<>();
 }

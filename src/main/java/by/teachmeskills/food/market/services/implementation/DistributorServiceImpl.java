@@ -77,5 +77,4 @@ public class DistributorServiceImpl implements DistributorService {
     public void addProduct(ProductRequestDTO productRequestDTO) {
         productRepository.save(transformerProductRequestDTOToProduct.transform(productRequestDTO));
     }
-
 }

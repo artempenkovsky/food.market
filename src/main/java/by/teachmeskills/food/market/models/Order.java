@@ -30,4 +30,14 @@ public class Order {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<ProductOrder> productOrders = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private OrderStatus orderStatus;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private PaymentType paymentType;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private DeliveryType deliveryType;
+
 }

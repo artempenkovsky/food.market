@@ -29,5 +29,4 @@ public class UserValidator implements Validator {
             errors.rejectValue("login","DIFFERENT","Пользователь с таким логином уже существует в системе!");
         }
     }
-
 }

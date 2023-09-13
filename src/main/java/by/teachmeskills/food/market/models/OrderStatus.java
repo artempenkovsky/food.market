@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "order_status")
@@ -21,4 +23,7 @@ public class OrderStatus {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderStatus")
+    private List<Order> orderList = new ArrayList<>();
 }
