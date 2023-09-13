@@ -43,6 +43,18 @@ public class User implements UserDetails {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private UserRole userRole;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Order> orderList = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Contact> contacts = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "distributor")
+    private List<Product> products= new ArrayList<>();
+
+    @Column(name = "approved")
+    private Boolean approved;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<UserRole> userRoleList = new ArrayList<>();
